@@ -3,6 +3,10 @@ import chatMessages from './data/messages.json';
 import ChatLog from './components/ChatLog.jsx';
 import { useState } from 'react';
 
+const getLikeCount = (data) => {
+  return data.filter(chat => chat.liked).length;
+};
+
 const App = () => {
   const [chatData, setChatData] = useState(chatMessages);
   const chatLiked = (id) => {
@@ -17,10 +21,6 @@ const App = () => {
     });
   };
 
-  const getLikeCount = (data) => {
-    return data.filter(chat => chat.liked).length;
-  };
-
   return (
     <div id="App">
       <header>
@@ -30,8 +30,6 @@ const App = () => {
         </section>
       </header>
       <main>
-        {/* Wave 01: Render one ChatEntry component
-        Wave 02: Render ChatLog component */}
         <ChatLog entries={chatData} onLike={chatLiked}></ChatLog>
       </main>
     </div>
