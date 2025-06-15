@@ -26,7 +26,7 @@ const App = () => {
       <header>
         <h1>Chat between Vladimir and Estragon</h1>
         <section>
-          <span id="heartWidget">{getLikeCount(chatData)}❤️s</span>
+          <span id="heartWidget">{getLikeCount(chatData)} ❤️s</span>
         </section>
       </header>
       <main>
