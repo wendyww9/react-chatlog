@@ -1,20 +1,38 @@
 import './App.css';
 import chatMessages from './data/messages.json';
 import ChatLog from './components/ChatLog.jsx';
+import { useState } from 'react';
 
 const App = () => {
+  const [chatData, setChatData] = useState(chatMessages);
+  const chatLiked = (id) => {
+    setChatData(chatData => {
+      return chatData.map(chat => {
+        if (chat.id === id) {
+          return {...chat, liked: !chat.liked};
+        } else {
+          return chat;
+        }
+      });
+    });
+  };
+
+  const getLikeCount = (data) => {
+    return data.filter(chat => chat.liked).length;
+  };
+
   return (
     <div id="App">
       <header>
         <h1>Chat between Vladimir and Estragon</h1>
         <section>
-          <span>0🤍s</span>
+          <span id="heartWidget">{getLikeCount(chatData)}❤️s</span>
         </section>
       </header>
       <main>
         {/* Wave 01: Render one ChatEntry component
         Wave 02: Render ChatLog component */}
-        <ChatLog entries={chatMessages}></ChatLog>
+        <ChatLog entries={chatData} onLike={chatLiked}></ChatLog>
       </main>
     </div>
   );

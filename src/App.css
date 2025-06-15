@@ -27,7 +27,7 @@
 }
 
 #App header section {
-  background-color: #e0ffff;
+  background-color: #222 /*#e0ffff*/;
 }
 
 #App .widget {
@@ -46,7 +46,7 @@
 }
 
 #App span {
-  display: inline-block
+  display: inline-block;
 }
 
 .red {
