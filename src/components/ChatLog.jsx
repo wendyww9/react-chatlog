@@ -2,7 +2,12 @@ import './ChatLog.css';
 import ChatEntry from './ChatEntry';
 import PropTypes from 'prop-types';
 
-const ChatLog = ({entries, onLike}) => {
+const ChatLog = ({entries, onLike, uniqueSenders}) => {
+  const getPosition = (sender) => {
+    if (!uniqueSenders || uniqueSenders.length < 2) return 'local';
+    return sender === uniqueSenders[1] ? 'remote' : 'local';
+  };
+
   const chatEntryComponents = entries.map((entry) => {
     return (
       <li key={entry.id}>
@@ -12,7 +17,8 @@ const ChatLog = ({entries, onLike}) => {
           body={entry.body}
           timeStamp={entry.timeStamp}
           liked={entry.liked}
-          onLike={onLike}>
+          onLike={onLike}
+          position={getPosition(entry.sender)}>
         </ChatEntry>
       </li>
     );
@@ -35,7 +41,8 @@ ChatLog.propTypes = {
       liked: PropTypes.bool.isRequired,
     })
   ).isRequired,
-  onLike: PropTypes.func.isRequired,
+  onLike:PropTypes.func.isRequired,
+  uniqueSenders:PropTypes.array.isRequired,
 };
 
 export default ChatLog;

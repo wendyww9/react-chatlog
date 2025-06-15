@@ -7,6 +7,18 @@ const getLikeCount = (data) => {
   return data.filter(chat => chat.liked).length;
 };
 
+const extractUniqueSenders = (chatLog) => {
+  const uniqueSenders = [];
+
+  for (const message of chatLog) {
+    if (!uniqueSenders.includes(message.sender)) {
+      uniqueSenders.push(message.sender);
+    }
+  }
+
+  return uniqueSenders;
+};
+
 const App = () => {
   const [chatData, setChatData] = useState(chatMessages);
   const chatLiked = (id) => {
@@ -21,16 +33,18 @@ const App = () => {
     });
   };
 
+  const uniqueSenders = extractUniqueSenders(chatData);
+
   return (
     <div id="App">
       <header>
-        <h1>Chat between Vladimir and Estragon</h1>
+        <h1>{`Chat between ${uniqueSenders[0]} and ${uniqueSenders[1]}`}</h1>
         <section>
           <span id="heartWidget">{getLikeCount(chatData)} ❤️s</span>
         </section>
       </header>
       <main>
-        <ChatLog entries={chatData} onLike={chatLiked}></ChatLog>
+        <ChatLog entries={chatData} onLike={chatLiked} uniqueSenders={uniqueSenders}></ChatLog>
       </main>
     </div>
   );
