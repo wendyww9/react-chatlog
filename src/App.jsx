@@ -8,7 +8,7 @@ const App = () => {
       <header>
         <h1>Chat between Vladimir and Estragon</h1>
         <section>
-          <p>22</p>
+          <span>0🤍s</span>
         </section>
       </header>
       <main>
