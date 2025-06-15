@@ -40,7 +40,7 @@ const App = () => {
       <header>
         <h1>{`Chat between ${uniqueSenders[0]} and ${uniqueSenders[1]}`}</h1>
         <section>
-          <span id="heartWidget">{getLikeCount(chatData)} ❤️s</span>
+          <span className='widget' id="heartWidget">{getLikeCount(chatData)} ❤️s</span>
         </section>
       </header>
       <main>
