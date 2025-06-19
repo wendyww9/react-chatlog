@@ -3,36 +3,31 @@ import chatMessages from './data/messages.json';
 import ChatLog from './components/ChatLog.jsx';
 import { useState } from 'react';
 
-const getLikeCount = (data) => {
-  return data.filter(chat => chat.liked).length;
-};
-
-const extractUniqueSenders = (chatLog) => {
-  const uniqueSenders = [];
-
-  for (const message of chatLog) {
-    if (!uniqueSenders.includes(message.sender)) {
-      uniqueSenders.push(message.sender);
-    }
-  }
-
-  return uniqueSenders;
-};
-
 const App = () => {
   const [chatData, setChatData] = useState(chatMessages);
-  const chatLiked = (id) => {
+  const setChatLiked = (id) => {
     setChatData(chatData => {
       return chatData.map(chat => {
-        if (chat.id === id) {
-          return {...chat, liked: !chat.liked};
-        } else {
-          return chat;
-        }
+        return (chat.id === id) ? { ...chat, liked: !chat.liked } : chat;
       });
     });
   };
 
+  const likeCount = chatData.reduce((totalLikes, currentChat) => {
+    return totalLikes + (currentChat.liked ? 1 : 0);
+  }, 0);
+
+  const extractUniqueSenders = (chatLog) => {
+    const uniqueSenders = [];
+
+    for (const message of chatLog) {
+      if (!uniqueSenders.includes(message.sender)) {
+        uniqueSenders.push(message.sender);
+      }
+    }
+
+    return uniqueSenders;
+  };
   const uniqueSenders = extractUniqueSenders(chatData);
 
   return (
@@ -40,11 +35,15 @@ const App = () => {
       <header>
         <h1>{`Chat between ${uniqueSenders[0]} and ${uniqueSenders[1]}`}</h1>
         <section>
-          <span className='widget' id="heartWidget">{getLikeCount(chatData)} ❤️s</span>
+          <p className='widget' id="heartWidget">{likeCount} ❤️s</p>
         </section>
       </header>
       <main>
-        <ChatLog entries={chatData} onLike={chatLiked} uniqueSenders={uniqueSenders}></ChatLog>
+        <ChatLog
+          entries={chatData}
+          onLike={setChatLiked}
+          uniqueSenders={uniqueSenders}
+        />
       </main>
     </div>
   );

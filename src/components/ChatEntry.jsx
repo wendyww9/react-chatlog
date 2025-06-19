@@ -8,7 +8,7 @@ const ChatEntry = (props) => {
   const nameColor = props.liked ? '❤️' : '🤍';
 
   return (
-    <div className={`chat-entry ${props.position}`}>
+    <li className={`chat-entry ${props.position}`}>
       <h2 className="entry-name">{props.sender}</h2>
       <section className="entry-bubble">
         <p className='entry-body'>{props.body}</p>
@@ -17,7 +17,7 @@ const ChatEntry = (props) => {
         </p>
         <button className="like" onClick={() => props.onLike(props.id)}>{nameColor}</button>
       </section>
-    </div>
+    </li>
   );
 };
 

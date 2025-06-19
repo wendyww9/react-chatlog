@@ -10,17 +10,16 @@ const ChatLog = ({entries, onLike, uniqueSenders}) => {
 
   const chatEntryComponents = entries.map((entry) => {
     return (
-      <li key={entry.id}>
-        <ChatEntry
-          id={entry.id}
-          sender={entry.sender}
-          body={entry.body}
-          timeStamp={entry.timeStamp}
-          liked={entry.liked}
-          onLike={onLike}
-          position={getPosition(entry.sender)}>
-        </ChatEntry>
-      </li>
+      <ChatEntry
+        key={entry.id}
+        id={entry.id}
+        sender={entry.sender}
+        body={entry.body}
+        timeStamp={entry.timeStamp}
+        liked={entry.liked}
+        onLike={onLike}
+        position={getPosition(entry.sender)}>
+      </ChatEntry>
     );
   });
 
